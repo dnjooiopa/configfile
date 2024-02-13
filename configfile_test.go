@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/acoshift/configfile"
+	"github.com/dnjooiopa/configfile"
 )
 
 func testReader(t *testing.T, c *configfile.Reader) {

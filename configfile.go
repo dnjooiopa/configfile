@@ -2,6 +2,7 @@ package configfile
 
 import (
 	"encoding/base64"
+	"fmt"
 	"io"
 	"os"
 	"strconv"
@@ -10,7 +11,7 @@ import (
 
 	"github.com/joho/godotenv"
 
-	"github.com/acoshift/configfile/internal/reader"
+	"github.com/dnjooiopa/configfile/internal/reader"
 )
 
 func LoadDotEnv(filename ...string) error {
@@ -160,7 +161,7 @@ func (r *Reader) Bytes(name string) []byte {
 func (r *Reader) MustBytes(name string) []byte {
 	s, err := r.read(name)
 	if err != nil {
-		panic(err)
+		panic(fmt.Errorf("env %s: %w", name, err))
 	}
 	return s
 }
@@ -183,7 +184,7 @@ func (r *Reader) String(name string) string {
 func (r *Reader) MustString(name string) string {
 	s, err := r.readString(name)
 	if err != nil {
-		panic(err)
+		panic(fmt.Errorf("env %s: %w", name, err))
 	}
 	return s
 }
@@ -212,11 +213,11 @@ func (r *Reader) Base64(name string) []byte {
 func (r *Reader) MustBase64(name string) []byte {
 	s, err := r.readString(name)
 	if err != nil {
-		panic(err)
+		panic(fmt.Errorf("env %s: %w", name, err))
 	}
 	b, err := base64.StdEncoding.DecodeString(s)
 	if err != nil {
-		panic(err)
+		panic(fmt.Errorf("env %s: %w", name, err))
 	}
 	return b
 }
@@ -239,7 +240,7 @@ func (r *Reader) Int(name string) int {
 func (r *Reader) MustInt(name string) int {
 	i, err := r.readInt(name)
 	if err != nil {
-		panic(err)
+		panic(fmt.Errorf("env %s: %w", name, err))
 	}
 	return i
 }
@@ -262,7 +263,7 @@ func (r *Reader) Int64(name string) int64 {
 func (r *Reader) MustInt64(name string) int64 {
 	i, err := r.readInt64(name)
 	if err != nil {
-		panic(err)
+		panic(fmt.Errorf("env %s: %w", name, err))
 	}
 	return i
 }
@@ -285,7 +286,7 @@ func (r *Reader) Float32(name string) float32 {
 func (r *Reader) MustFloat32(name string) float32 {
 	f, err := r.readFloat32(name)
 	if err != nil {
-		panic(err)
+		panic(fmt.Errorf("env %s: %w", name, err))
 	}
 	return f
 }
@@ -308,7 +309,7 @@ func (r *Reader) Float64(name string) float64 {
 func (r *Reader) MustFloat64(name string) float64 {
 	f, err := r.readFloat64(name)
 	if err != nil {
-		panic(err)
+		panic(fmt.Errorf("env %s: %w", name, err))
 	}
 	return f
 }
@@ -333,7 +334,7 @@ func (r *Reader) Bool(name string) bool {
 func (r *Reader) MustBool(name string) bool {
 	b, err := r.readBool(name)
 	if err != nil {
-		panic(err)
+		panic(fmt.Errorf("env %s: %w", name, err))
 	}
 	return b
 }
@@ -357,7 +358,7 @@ func (r *Reader) Duration(name string) time.Duration {
 func (r *Reader) MustDuration(name string) time.Duration {
 	b, err := r.readDuration(name)
 	if err != nil {
-		panic(err)
+		panic(fmt.Errorf("env %s: %w", name, err))
 	}
 	return b
 }
